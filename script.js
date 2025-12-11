@@ -1,3 +1,82 @@
+// ===== PASSWORD AND LOADING SYSTEM =====
+const PASSWORD = "punti";
+let passwordVerified = false;
+
+function initPasswordSystem() {
+    const passwordScreen = document.getElementById('password-screen');
+    const loadingScreen = document.getElementById('loading-screen');
+    const mainContent = document.getElementById('main-content');
+    const passwordInput = document.getElementById('password-input');
+    const unlockBtn = document.getElementById('unlock-btn');
+    const passwordError = document.getElementById('password-error');
+
+    // Check password on button click
+    unlockBtn.addEventListener('click', checkPassword);
+
+    // Check password on Enter key
+    passwordInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            checkPassword();
+        }
+    });
+
+    function checkPassword() {
+        const enteredPassword = passwordInput.value.toLowerCase().trim();
+
+        if (enteredPassword === PASSWORD) {
+            passwordVerified = true;
+            passwordError.textContent = '';
+
+            // Hide password screen with fade out
+            passwordScreen.style.animation = 'fadeOut 0.5s ease-out forwards';
+
+            setTimeout(() => {
+                passwordScreen.style.display = 'none';
+                loadingScreen.style.display = 'flex';
+
+                // Show main content after loading
+                setTimeout(() => {
+                    loadingScreen.style.animation = 'fadeOut 0.5s ease-out forwards';
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                        mainContent.style.display = 'block';
+                        mainContent.style.animation = 'fadeIn 0.8s ease-out forwards';
+
+                        // Initialize snowfall after content is visible
+                        new Snowfall();
+                    }, 500);
+                }, 2500); // Loading duration
+            }, 500);
+        } else {
+            passwordError.textContent = '❌ Incorrect password. Try again!';
+            passwordInput.value = '';
+            passwordInput.style.animation = 'shake 0.5s ease';
+            setTimeout(() => {
+                passwordInput.style.animation = '';
+            }, 500);
+        }
+    }
+}
+
+// Add fade animations to CSS dynamically
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-10px); }
+        75% { transform: translateX(10px); }
+    }
+`;
+document.head.appendChild(style);
+
 // ===== REALISTIC 3D SNOWFALL ANIMATION =====
 class Snowfall {
     constructor() {
@@ -166,14 +245,39 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
+// ===== MUSIC PLAYER FUNCTIONALITY =====
+let isPlaying = false;
+const musicPlayer = document.getElementById('music-player');
+const playPauseBtn = document.getElementById('play-pause-btn');
+
+function togglePlayPause() {
+    if (isPlaying) {
+        musicPlayer.pause();
+        isPlaying = false;
+        // Change to play icon
+        playPauseBtn.innerHTML = `
+            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"></path>
+        `;
+    } else {
+        musicPlayer.play();
+        isPlaying = true;
+        // Change to pause icon
+        playPauseBtn.innerHTML = `
+            <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"></path>
+        `;
+    }
+}
+
 // ===== INITIALIZE ON PAGE LOAD =====
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize snowfall
-    new Snowfall();
+    // Initialize password system first
+    initPasswordSystem();
 
-    // Setup surprise button
+    // Setup surprise button (will work after password is entered)
     const surpriseBtn = document.getElementById('surprise-btn');
-    surpriseBtn.addEventListener('click', showRandomWish);
+    if (surpriseBtn) {
+        surpriseBtn.addEventListener('click', showRandomWish);
+    }
 
     // Observe all slide-up elements
     const slideUpElements = document.querySelectorAll('.slide-up');
@@ -182,4 +286,46 @@ document.addEventListener('DOMContentLoaded', () => {
     // Observe fade-in-up elements
     const fadeInElements = document.querySelectorAll('.fade-in-up');
     fadeInElements.forEach(el => observer.observe(el));
+
+    // Setup music player controls
+    const playPauseBtn = document.getElementById('play-pause-btn');
+    const musicPlayer = document.getElementById('music-player');
+
+    if (playPauseBtn && musicPlayer) {
+        playPauseBtn.addEventListener('click', togglePlayPause);
+
+        // Add smooth volume fade in when playing
+        musicPlayer.addEventListener('play', () => {
+            musicPlayer.volume = 0;
+            let vol = 0;
+            const fadeIn = setInterval(() => {
+                if (vol < 0.7) {
+                    vol += 0.05;
+                    musicPlayer.volume = vol;
+                } else {
+                    clearInterval(fadeIn);
+                }
+            }, 50);
+        });
+
+        // Update progress bar
+        const progressBar = document.getElementById('progress-bar');
+        if (progressBar) {
+            musicPlayer.addEventListener('timeupdate', () => {
+                const progress = (musicPlayer.currentTime / musicPlayer.duration) * 100;
+                progressBar.style.width = progress + '%';
+            });
+        }
+    }
+
+    // Add interactive hover effects to all cards
+    const cards = document.querySelectorAll('.glass-card, .admire-card, .prayer-card');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function () {
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+        });
+        card.addEventListener('mouseleave', function () {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
 });
