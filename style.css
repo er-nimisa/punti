@@ -1,0 +1,721 @@
+/* ===== CSS VARIABLES ===== */
+:root {
+    /* Colors - Enhanced vibrant palette */
+    --gradient-start: #ffcce0;
+    --gradient-mid: #e0b3ff;
+    --gradient-end: #b3d9ff;
+    --accent-pink: #ff6ec7;
+    --accent-purple: #b794f6;
+    --accent-blue: #7dd3fc;
+    --text-primary: #2d1b3d;
+    --text-secondary: #5a4266;
+    --text-light: #8b7a94;
+    --white: #ffffff;
+    --glass-bg: rgba(255, 255, 255, 0.2);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --glow-color: rgba(230, 179, 255, 0.7);
+    --shadow-soft: rgba(45, 27, 61, 0.15);
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+    --spacing-xl: 6rem;
+
+    /* Typography */
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'Poppins', sans-serif;
+
+    /* Border Radius */
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 30px;
+
+    /* Transitions */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-mid) 50%, var(--gradient-end) 100%);
+    background-attachment: fixed;
+    background-size: 200% 200%;
+    animation: gradientShift 15s ease infinite;
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* ===== SNOWFALL CANVAS ===== */
+#snowfall {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    position: relative;
+    z-index: 2;
+}
+
+/* ===== SECTION SPACING ===== */
+section {
+    padding: var(--spacing-xl) 0;
+    position: relative;
+    z-index: 2;
+}
+
+/* ===== TYPOGRAPHY ===== */
+.section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    background: linear-gradient(135deg, #d946ef, #8b5cf6, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 2px 8px rgba(139, 92, 246, 0.3));
+}
+
+/* ===== HERO SECTION ===== */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: var(--spacing-lg);
+}
+
+.hero-content {
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 700;
+    margin-bottom: var(--spacing-md);
+    background: linear-gradient(135deg, #ec4899, #a855f7, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 4px 20px rgba(236, 72, 153, 0.4));
+    animation: titleGlow 3s ease-in-out infinite;
+}
+
+.hero-subtitle {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: var(--text-secondary);
+    font-weight: 300;
+    margin-bottom: var(--spacing-lg);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-illustration {
+    margin-top: var(--spacing-lg);
+    animation: float 6s ease-in-out infinite;
+}
+
+.hero-illustration img {
+    max-width: 100%;
+    height: auto;
+    max-height: 400px;
+    filter: drop-shadow(0 20px 60px rgba(168, 85, 247, 0.4));
+    border-radius: var(--radius-lg);
+}
+
+/* ===== GLASS CARD ===== */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    box-shadow: 0 8px 32px var(--shadow-soft),
+        0 0 60px rgba(230, 179, 255, 0.2);
+    transition: var(--transition-smooth);
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 48px var(--shadow-soft),
+        0 0 80px rgba(230, 179, 255, 0.3);
+}
+
+/* ===== HEART SECTION ===== */
+.heart-section {
+    padding: var(--spacing-xl) 0;
+}
+
+.heart-message {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    line-height: 1.8;
+    color: var(--text-secondary);
+    text-align: center;
+    font-weight: 300;
+}
+
+/* ===== ADMIRE SECTION ===== */
+.admire-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.admire-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    text-align: center;
+    transition: var(--transition-bounce);
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.admire-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.admire-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 40px var(--shadow-soft),
+        0 0 60px rgba(230, 179, 255, 0.4);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-sm);
+    filter: drop-shadow(0 4px 12px rgba(168, 85, 247, 0.3));
+}
+
+.admire-card p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+/* ===== SURPRISE SECTION ===== */
+.surprise-section {
+    text-align: center;
+}
+
+.surprise-button {
+    font-family: var(--font-body);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--white);
+    background: linear-gradient(135deg, #ec4899, #a855f7);
+    border: none;
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 3rem;
+    cursor: pointer;
+    transition: var(--transition-bounce);
+    box-shadow: 0 10px 30px rgba(168, 85, 247, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.surprise-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.surprise-button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.surprise-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 15px 50px rgba(168, 85, 247, 0.6);
+}
+
+.surprise-button:active {
+    transform: scale(0.95);
+}
+
+.wish-display {
+    margin-top: var(--spacing-lg);
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wish-text {
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    color: var(--text-primary);
+    font-weight: 500;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-lg);
+    max-width: 700px;
+    animation: wishFadeIn 0.6s ease-out;
+    box-shadow: 0 8px 32px var(--shadow-soft);
+}
+
+/* ===== PRAYER SECTION ===== */
+.prayer-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.glow-border {
+    border: 2px solid transparent;
+    background-image: linear-gradient(var(--glass-bg), var(--glass-bg)),
+        linear-gradient(135deg, #ec4899, #a855f7, #6366f1);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    box-shadow: 0 0 40px var(--glow-color),
+        0 8px 32px var(--shadow-soft);
+    animation: glowPulse 3s ease-in-out infinite;
+}
+
+.prayer-text {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    line-height: 1.8;
+    color: var(--text-secondary);
+    font-weight: 300;
+}
+
+/* ===== FINAL SECTION ===== */
+.final-section {
+    padding-bottom: var(--spacing-xl);
+}
+
+.final-card {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.final-message {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    line-height: 1.8;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-lg);
+    font-weight: 400;
+}
+
+.final-wish {
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+    font-weight: 300;
+}
+
+.signature {
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--text-light);
+    font-style: italic;
+    margin-top: var(--spacing-lg);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes wishFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes glowPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 40px var(--glow-color),
+            0 8px 32px var(--shadow-soft);
+    }
+
+    50% {
+        box-shadow: 0 0 60px rgba(230, 179, 255, 0.8),
+            0 8px 32px var(--shadow-soft);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes gradientShift {
+
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes titleGlow {
+
+    0%,
+    100% {
+        filter: drop-shadow(0 4px 20px rgba(236, 72, 153, 0.4));
+    }
+
+    50% {
+        filter: drop-shadow(0 4px 30px rgba(236, 72, 153, 0.7));
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    :root {
+        --spacing-lg: 3rem;
+        --spacing-xl: 4rem;
+    }
+
+    .admire-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .surprise-button {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+
+    .glass-card,
+    .prayer-card {
+        padding: var(--spacing-md);
+    }
+}
+
+/* ===== MUSIC CARD ===== */
+.music-card {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 200px;
+    height: 270px;
+    z-index: 100;
+    animation: floatMusic 4s ease-in-out infinite;
+}
+
+.music-card-glass {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(168, 85, 247, 0.3),
+        0 0 40px rgba(230, 179, 255, 0.2);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: var(--transition-smooth);
+}
+
+.music-card-glass:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(168, 85, 247, 0.4),
+        0 0 60px rgba(230, 179, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.music-tag {
+    display: block;
+    width: 60px;
+    border: 1px solid rgba(180, 177, 177, 0.4);
+    text-align: center;
+    font-size: 10px;
+    border-radius: 12px;
+    font-family: var(--font-body);
+    color: var(--text-secondary);
+    padding: 3px 8px;
+    margin-bottom: 15px;
+}
+
+.music-icon-container {
+    width: 80px;
+    height: 80px;
+    background: rgba(230, 179, 255, 0.3);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.music-note {
+    color: var(--text-primary);
+    filter: drop-shadow(0 2px 4px rgba(168, 85, 247, 0.3));
+}
+
+.music-title {
+    width: 100%;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: var(--font-body);
+    text-align: center;
+    color: var(--text-primary);
+    margin-bottom: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.music-artist {
+    width: 100%;
+    font-size: 10px;
+    font-weight: 400;
+    font-family: var(--font-body);
+    text-align: center;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+
+.music-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100px;
+    margin-bottom: 30px;
+}
+
+.control-icon {
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.control-icon:hover {
+    color: var(--text-primary);
+    transform: scale(1.1);
+}
+
+.play-icon {
+    color: var(--text-primary);
+}
+
+.play-icon:hover {
+    color: var(--accent-purple);
+    transform: scale(1.2);
+}
+
+.music-controls-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    padding: 0 10px;
+}
+
+.bottom-icon {
+    color: var(--text-light);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.bottom-icon:hover {
+    color: var(--text-primary);
+    transform: scale(1.15);
+}
+
+.heart-icon:hover {
+    color: #ec4899;
+}
+
+.music-orb {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.orb-purple {
+    background-color: #a855f7;
+    filter: drop-shadow(0 0 15px #a855f7);
+    top: 30px;
+    left: 20px;
+    animation: orbMove1 6s infinite;
+}
+
+.orb-green {
+    background-color: #34d399;
+    filter: drop-shadow(0 0 15px #34d399);
+    top: 120px;
+    left: 110px;
+    animation: orbMove2 6s infinite;
+}
+
+@keyframes floatMusic {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes orbMove1 {
+
+    0%,
+    100% {
+        top: 30px;
+        left: 20px;
+    }
+
+    25% {
+        top: 60px;
+        left: 50px;
+    }
+
+    50% {
+        top: 100px;
+        left: 80px;
+    }
+
+    75% {
+        top: 50px;
+        left: 100px;
+    }
+}
+
+@keyframes orbMove2 {
+
+    0%,
+    100% {
+        top: 120px;
+        left: 110px;
+    }
+
+    25% {
+        top: 60px;
+        left: 50px;
+    }
+
+    50% {
+        top: 80px;
+        left: 30px;
+    }
+
+    75% {
+        top: 40px;
+        left: 90px;
+    }
+}
+
+/* Responsive music card */
+@media (max-width: 768px) {
+    .music-card {
+        bottom: 20px;
+        right: 20px;
+        width: 180px;
+        height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .music-card {
+        bottom: 15px;
+        right: 15px;
+        width: 160px;
+        height: 230px;
+    }
+
+    .music-icon-container {
+        width: 70px;
+        height: 70px;
+    }
+}
